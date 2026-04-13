@@ -1,7 +1,7 @@
 module "vpc" {
 
-  source                 = "git::https://github.com/mahesh-practice09/terraform-aws-vpc.git?ref=main"
-  #source = "../terraform-aws-vpc"
+  #source                 = "git::https://github.com/mahesh-practice09/terraform-aws-vpc.git?ref=main"
+  source = "../../terraform-aws-vpc"
   cidr_block             = "10.0.0.0/16"
   Project                = "Roboshop"
   Env                    = "sbx"
