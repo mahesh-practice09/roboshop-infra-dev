@@ -33,6 +33,7 @@ resource "aws_iam_instance_profile" "bastionprofile" {
 resource "aws_instance" "bastion" {
    ami = data.aws_ami.devopsami.image_id
    instance_type = var.instance_type
+   iam_instance_profile = aws_iam_instance_profile.bastionprofile.name
    subnet_id = local.public_subnet_ids[0]
    vpc_security_group_ids = [ local.bastionsg_id ]
    tags = merge(local.common_tags, 

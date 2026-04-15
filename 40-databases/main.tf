@@ -8,7 +8,7 @@ resource "aws_instance" "mongodb" {
 }
 
 resource "terraform_data" "bootstrap" {
-    triggers_replace = [aws_instance.mongodb]
+    triggers_replace = [aws_instance.mongodb.id]
     depends_on = [ aws_route53_record.mongodb ]
 
      provisioner "file" {
