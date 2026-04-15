@@ -1,7 +1,7 @@
 
 
   variable "Project" {
-    default = "Roboshop"
+    default = "roboshop"
   }
 
   variable "Env" {
@@ -31,6 +31,6 @@
 
       "backend_alb" ,"frontend_alb",
 
-      "Bastion"
+      "bastion"
     ]
   }

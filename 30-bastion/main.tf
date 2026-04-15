@@ -28,3 +28,31 @@ resource "aws_iam_instance_profile" "bastionprofile" {
    name =  "${var.Project}-${var.Env}-Bastion-profile"
    role = aws_iam_role.bastionrole.name
 }
+
+
+resource "aws_instance" "bastion" {
+   ami = data.aws_ami.devopsami.image_id
+   instance_type = var.instance_type
+   subnet_id = local.public_subnet_ids[0]
+   vpc_security_group_ids = [ local.bastionsg_id ]
+   tags = merge(local.common_tags, 
+    { Name = "${var.Project}-${var.Env}-bastion"})          # roboshop-sbx-bastion
+}
+
+resource "terraform_data" "bootstrap" {
+  triggers_replace = [ aws_instance.bastion.id ]
+    provisioner "file" {
+      source = "bootstrap.sh"
+      destination = "/tmp/bootstrap.sh"
+    }
+    connection {
+         type = "ssh"
+         user = "ec2-user"
+         password = "DevOps321"
+         host = aws_instance.bastion.public_ip
+    }
+    provisioner "remote-exec" {
+      inline = [ "chmod +x /tmp/bootstrap.sh" ,
+                 "sudo sh /tmp/bootstrap.sh" ]
+    }
+}

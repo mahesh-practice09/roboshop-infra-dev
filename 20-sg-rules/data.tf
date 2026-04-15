@@ -4,7 +4,7 @@ data "http" "my_public_ip" {
 
 data "aws_ssm_parameter" "bastion_sg_id" {
   
-  name = "/${var.Project}/${var.Env}/Bastion_sg_id"
+  name = "/${var.Project}/${var.Env}/bastion_sg_id"
 }
 
 data "aws_ssm_parameter" "mongodb_sg_id" {

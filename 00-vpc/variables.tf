@@ -1,7 +1,7 @@
 
 
   variable "Project" {
-    default = "Roboshop"
+    default = "roboshop"
   }
 
   variable "Env" {
