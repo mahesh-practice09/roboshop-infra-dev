@@ -13,11 +13,11 @@ resource "aws_iam_role" "mysqlrole" {
       }
     ]
   })
-   tags = merge(local.common_tags ,{Name = local.mysql-role-name})
+   tags = merge(local.common_tags ,{Name = local.mysql_role_name})
 }
 
 resource "aws_iam_policy" "sqlpolicy" {
-  name        = local.mysql-role-policy
+  name        = local.mysql_role_policy
   
    policy = file("mysql-iam-policy.json")
 }
