@@ -6,6 +6,7 @@
       "Action": [
         "ssm:GetParameter",
         "ssm:GetParameters",
+        "ssm:DescribeParameters",
         "kms:Decrypt"
       ],
       "Resource": "arn:aws:ssm:us-east-1:024579064366:parameter/roboshop/sbx/mysql_root_password"
