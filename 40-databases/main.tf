@@ -25,7 +25,7 @@ resource "terraform_data" "mongodb_bootstrap" {
          type = "ssh"
          user = "ec2-user"
          password = "DevOps321"
-         host = aws_route53_record.mongodb.fqdn
+         host = aws_instance.mongodb.private_ip
     }
    
 }
@@ -57,7 +57,7 @@ resource "terraform_data" "redis_bootstrap" {
          type = "ssh"
          user = "ec2-user"
          password = "DevOps321"
-         host = aws_route53_record.redis.fqdn
+         host = aws_instance.redis.private_ip
     }
    
 }
@@ -89,7 +89,7 @@ resource "terraform_data" "rabbitmq_bootstrap" {
          type = "ssh"
          user = "ec2-user"
          password = "DevOps321"
-         host = aws_route53_record.rabbitmq.fqdn
+         host = aws_instance.mysql.private_ip
     }
    
 }
@@ -122,7 +122,7 @@ resource "terraform_data" "mysql_bootstrap" {
          type = "ssh"
          user = "ec2-user"
          password = "DevOps321"
-         host = aws_route53_record.mysql.fqdn
+         host = aws_instance.mysql.private_ip
     }
    
 }
