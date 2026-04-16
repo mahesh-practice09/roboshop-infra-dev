@@ -136,29 +136,29 @@ resource "aws_route53_record" "mongodb" {
   allow_overwrite = true
 }
 
-resource "aws_route53_record" "redis" {
-  zone_id = var.zone_id
-  name    = "${var.Project}-${var.Env}-redis.${var.domain_name}"        #roboshop-sbx-redis.daws88s.shop
-  type    = "A"
-  ttl     = 2
-  records = [ aws_instance.redis.private_ip ]
-  allow_overwrite = true
-}
+# resource "aws_route53_record" "redis" {
+#   zone_id = var.zone_id
+#   name    = "${var.Project}-${var.Env}-redis.${var.domain_name}"        #roboshop-sbx-redis.daws88s.shop
+#   type    = "A"
+#   ttl     = 2
+#   records = [ aws_instance.redis.private_ip ]
+#   allow_overwrite = true
+# }
 
-resource "aws_route53_record" "rabbitmq" {
-  zone_id = var.zone_id
-  name    = "${var.Project}-${var.Env}-rabbitmq.${var.domain_name}"     #roboshop-sbx-rabbitmq.daws88s.shop
-  type    = "A"
-  ttl     = 2
-  records = [ aws_instance.rabbitmq.private_ip ]
-  allow_overwrite = true
-}
+# resource "aws_route53_record" "rabbitmq" {
+#   zone_id = var.zone_id
+#   name    = "${var.Project}-${var.Env}-rabbitmq.${var.domain_name}"     #roboshop-sbx-rabbitmq.daws88s.shop
+#   type    = "A"
+#   ttl     = 2
+#   records = [ aws_instance.rabbitmq.private_ip ]
+#   allow_overwrite = true
+# }
 
-resource "aws_route53_record" "mysql" {
-  zone_id = var.zone_id
-  name    = "${var.Project}-${var.Env}-mysql.${var.domain_name}"       #roboshop-sbx-mysql.daws88s.shop
-  type    = "A"
-  ttl     = 2
-  records = [ aws_instance.mysql.private_ip ]
-  allow_overwrite = true
-}
+# resource "aws_route53_record" "mysql" {
+#   zone_id = var.zone_id
+#   name    = "${var.Project}-${var.Env}-mysql.${var.domain_name}"       #roboshop-sbx-mysql.daws88s.shop
+#   type    = "A"
+#   ttl     = 2
+#   records = [ aws_instance.mysql.private_ip ]
+#   allow_overwrite = true
+# }
