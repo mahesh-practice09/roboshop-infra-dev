@@ -1,34 +1,34 @@
-resource "aws_instance" "mongodb" {
-   ami = data.aws_ami.devopsami.image_id
-   instance_type = local.instance_type
-   subnet_id = local.db_private_subnet_ids[0]
-   vpc_security_group_ids = [ local.mongodbsg_id ]
-   tags = merge(local.common_tags, 
-    { Name = "${var.Project}-${var.Env}-mongodb"})      #    Roboshop-sbx-mongodb
-}
+# resource "aws_instance" "mongodb" {
+#    ami = data.aws_ami.devopsami.image_id
+#    instance_type = local.instance_type
+#    subnet_id = local.db_private_subnet_ids[0]
+#    vpc_security_group_ids = [ local.mongodbsg_id ]
+#    tags = merge(local.common_tags, 
+#     { Name = "${var.Project}-${var.Env}-mongodb"})      #    Roboshop-sbx-mongodb
+# }
 
-resource "terraform_data" "mongodb_bootstrap" {
-    triggers_replace = [aws_instance.mongodb.id]
+# resource "terraform_data" "mongodb_bootstrap" {
+#     triggers_replace = [aws_instance.mongodb.id]
   
 
-     provisioner "file" {
-        source = "bootstrap.sh"
-        destination = "/tmp/bootstrap.sh"
-     }
+#      provisioner "file" {
+#         source = "bootstrap.sh"
+#         destination = "/tmp/bootstrap.sh"
+#      }
 
-     provisioner "remote-exec" {
-      inline = [ "chmod +x /tmp/bootstrap.sh" ,
-                 "sudo sh /tmp/bootstrap.sh mongodb" ]
-    }
+#      provisioner "remote-exec" {
+#       inline = [ "chmod +x /tmp/bootstrap.sh" ,
+#                  "sudo sh /tmp/bootstrap.sh mongodb" ]
+#     }
 
-    connection {
-         type = "ssh"
-         user = "ec2-user"
-         password = "DevOps321"
-         host = aws_instance.mongodb.private_ip
-    }
+#     connection {
+#          type = "ssh"
+#          user = "ec2-user"
+#          password = "DevOps321"
+#          host = aws_instance.mongodb.private_ip
+#     }
    
-}
+# }
 
 # resource "aws_instance" "redis" {
 #    ami = data.aws_ami.devopsami.image_id
@@ -128,14 +128,14 @@ resource "terraform_data" "mysql_bootstrap" {
    
 }
 
-resource "aws_route53_record" "mongodb" {
-  zone_id = var.zone_id
-  name    = "${var.Project}-${var.Env}-mongodb.${var.domain_name}"      #roboshop-sbx-mongodb.daws88s.shop
-  type    = "A"
-  ttl     = 2
-  records = [ aws_instance.mongodb.private_ip ]
-  allow_overwrite = true
-}
+# resource "aws_route53_record" "mongodb" {
+#   zone_id = var.zone_id
+#   name    = "${var.Project}-${var.Env}-mongodb.${var.domain_name}"      #roboshop-sbx-mongodb.daws88s.shop
+#   type    = "A"
+#   ttl     = 2
+#   records = [ aws_instance.mongodb.private_ip ]
+#   allow_overwrite = true
+# }
 
 # resource "aws_route53_record" "redis" {
 #   zone_id = var.zone_id
