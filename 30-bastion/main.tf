@@ -26,7 +26,7 @@ resource "aws_iam_role_policy_attachment" "bastion_attach_policy" {
 
 resource "aws_iam_instance_profile" "bastionprofile" {
    name =  "${var.Project}-${var.Env}-Bastion-profile"
-   role = aws_iam_role.bastionrole.name
+role = aws_iam_role.bastionrole.name
 }
 
 
