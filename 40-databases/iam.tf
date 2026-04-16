@@ -19,7 +19,7 @@ resource "aws_iam_role" "mysqlrole" {
 resource "aws_iam_policy" "sqlpolicy" {
   name        = local.mysql-role-policy
   
-   policy = file(mysql-iam-policy.json)
+   policy = file("mysql-iam-policy.json")
 }
 
 resource "aws_iam_role_policy_attachment" "mysql_attach_policy" {
