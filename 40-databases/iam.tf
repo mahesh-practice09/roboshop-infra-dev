@@ -13,7 +13,7 @@ resource "aws_iam_role" "mysqlrole" {
       }
     ]
   })
-   tags = merge(local.common_tags , local.mysql-role-name)
+   tags = merge(local.common_tags ,{Name = local.mysql-role-name})
 }
 
 resource "aws_iam_policy" "sqlpolicy" {
