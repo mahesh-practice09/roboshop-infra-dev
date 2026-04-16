@@ -1,5 +1,5 @@
 locals {
-    private_subnet_ids = split(",", data.aws_ssm_parameter.private_subnet_ids.value)
+    db_private_subnet_ids = split(",", data.aws_ssm_parameter.db_private_subnet_ids.value)
     instance_type = var.instance_type
     mongodbsg_id = data.aws_ssm_parameter.mongodb_sg_id.value
     redissg_id = data.aws_ssm_parameter.redis_sg_id.value
