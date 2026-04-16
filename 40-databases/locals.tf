@@ -6,10 +6,12 @@ locals {
     rabbitmqsg_id = data.aws_ssm_parameter.rabbitmq_sg_id.value
     mysqlsg_id = data.aws_ssm_parameter.mysql_sg_id.value
     Env = "sbx"
-      common_tags = {
+    common_tags = {
         Project = var.Project
         Terraform = true
         Env = local.Env
       }
-  
+    mysql-role-name = join("-", [ for name in ["${var.Project},${var.Env},mysql"] : title(name) ])
+
+    mysql-role-policy = join("-", [ for name in ["${var.Project},${var.Env},mysql,policy"] : title(name) ])
 }     
