@@ -9,7 +9,7 @@ resource "aws_instance" "mongodb" {
 
 resource "terraform_data" "mongodb_bootstrap" {
     triggers_replace = [aws_instance.mongodb.id]
-    depends_on = [ aws_route53_record.mongodb ]
+  
 
      provisioner "file" {
         source = "bootstrap.sh"
@@ -41,7 +41,7 @@ resource "aws_instance" "redis" {
 
 resource "terraform_data" "redis_bootstrap" {
     triggers_replace = [aws_instance.redis.id]
-    depends_on = [ aws_route53_record.redis ]
+  
 
      provisioner "file" {
         source = "bootstrap.sh"
@@ -73,7 +73,7 @@ resource "aws_instance" "rabbitmq" {
 
 resource "terraform_data" "rabbitmq_bootstrap" {
     triggers_replace = [aws_instance.rabbitmq.id]
-    depends_on = [ aws_route53_record.rabbitmq ]
+   
 
      provisioner "file" {
         source = "bootstrap.sh"
@@ -89,7 +89,7 @@ resource "terraform_data" "rabbitmq_bootstrap" {
          type = "ssh"
          user = "ec2-user"
          password = "DevOps321"
-         host = aws_instance.mysql.private_ip
+         host = aws_instance.rabbitmq.private_ip
     }
    
 }
@@ -106,7 +106,7 @@ resource "aws_instance" "mysql" {
 
 resource "terraform_data" "mysql_bootstrap" {
     triggers_replace = [aws_instance.mysql.id]
-    depends_on = [ aws_route53_record.mysql ]
+  
 
      provisioner "file" {
         source = "bootstrap.sh"
