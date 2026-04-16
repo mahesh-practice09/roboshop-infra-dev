@@ -17,8 +17,8 @@ data "aws_ssm_parameter" "vpc_id" {
   name = "/${var.Project}/${var.Env}/vpc"
 }
 
-data "aws_ssm_parameter" "private_subnet_ids" {
-  name  = "/${var.Project}/${var.Env}/private_subnet_ids"
+data "aws_ssm_parameter" "db_private_subnet_ids" {
+  name  = "/${var.Project}/${var.Env}/db_private_subnet_ids"
 }
 
 data "aws_ssm_parameter" "mongodb_sg_id" {
@@ -36,3 +36,5 @@ data "aws_ssm_parameter" "mysql_sg_id" {
 data "aws_ssm_parameter" "rabbitmq_sg_id" {
   name  = "/${var.Project}/${var.Env}/rabbitmq_sg_id"
 }
+
+
