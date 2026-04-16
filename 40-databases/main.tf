@@ -94,38 +94,38 @@ resource "terraform_data" "mongodb_bootstrap" {
    
 # }
 
-# resource "aws_instance" "mysql" {
-#    ami = data.aws_ami.devopsami.image_id
-#    instance_type = local.instance_type
-#    subnet_id = local.db_private_subnet_ids[0]
-#    vpc_security_group_ids =  [ local.mysqlsg_id ]
-#    tags = merge(local.common_tags, 
-#     { Name = "${var.Project}-${var.Env}-mysql"})   #      Roboshop-sbx-mysql
+resource "aws_instance" "mysql" {
+   ami = data.aws_ami.devopsami.image_id
+   instance_type = local.instance_type
+   subnet_id = local.db_private_subnet_ids[0]
+   vpc_security_group_ids =  [ local.mysqlsg_id ]
+   tags = merge(local.common_tags, 
+    { Name = "${var.Project}-${var.Env}-mysql"})   #      Roboshop-sbx-mysql
 
-# }
+}
 
-# resource "terraform_data" "mysql_bootstrap" {
-#     triggers_replace = [aws_instance.mysql.id]
+resource "terraform_data" "mysql_bootstrap" {
+    triggers_replace = [aws_instance.mysql.id]
   
 
-#      provisioner "file" {
-#         source = "bootstrap.sh"
-#         destination = "/tmp/bootstrap.sh"
-#      }
+     provisioner "file" {
+        source = "bootstrap.sh"
+        destination = "/tmp/bootstrap.sh"
+     }
 
-#      provisioner "remote-exec" {
-#       inline = [ "chmod +x /tmp/bootstrap.sh" ,
-#                  "sudo sh /tmp/bootstrap.sh mysql" ]
-#     }
+     provisioner "remote-exec" {
+      inline = [ "chmod +x /tmp/bootstrap.sh" ,
+                 "sudo sh /tmp/bootstrap.sh mysql" ]
+    }
 
-#     connection {
-#          type = "ssh"
-#          user = "ec2-user"
-#          password = "DevOps321"
-#          host = aws_instance.mysql.private_ip
-#     }
+    connection {
+         type = "ssh"
+         user = "ec2-user"
+         password = "DevOps321"
+         host = aws_instance.mysql.private_ip
+    }
    
-# }
+}
 
 resource "aws_route53_record" "mongodb" {
   zone_id = var.zone_id
@@ -154,11 +154,11 @@ resource "aws_route53_record" "mongodb" {
 #   allow_overwrite = true
 # }
 
-# resource "aws_route53_record" "mysql" {
-#   zone_id = var.zone_id
-#   name    = "${var.Project}-${var.Env}-mysql.${var.domain_name}"       #roboshop-sbx-mysql.daws88s.shop
-#   type    = "A"
-#   ttl     = 2
-#   records = [ aws_instance.mysql.private_ip ]
-#   allow_overwrite = true
-# }
+resource "aws_route53_record" "mysql" {
+  zone_id = var.zone_id
+  name    = "${var.Project}-${var.Env}-mysql.${var.domain_name}"       #roboshop-sbx-mysql.daws88s.shop
+  type    = "A"
+  ttl     = 2
+  records = [ aws_instance.mysql.private_ip ]
+  allow_overwrite = true
+}
