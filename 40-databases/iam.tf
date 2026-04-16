@@ -1,5 +1,5 @@
 resource "aws_iam_role" "mysqlrole" {
-  name = "${var.Project}-${var.Env}-mysql"
+  name = local.mysql_role_name
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
