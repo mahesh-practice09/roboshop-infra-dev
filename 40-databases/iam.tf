@@ -24,8 +24,7 @@ resource "aws_iam_policy" "sqlpolicy" {
 
 resource "aws_iam_role_policy_attachment" "mysql_attach_policy" {
   role = aws_iam_role.mysqlrole.name
-  #policy_arn = aws_iam_policy.sqlpolicy.arn
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  policy_arn = aws_iam_policy.sqlpolicy.arn
 }
 
 resource "aws_iam_instance_profile" "mysqlprofile" {
