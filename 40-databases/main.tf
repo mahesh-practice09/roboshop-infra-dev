@@ -96,6 +96,7 @@ resource "terraform_data" "mongodb_bootstrap" {
 
 resource "aws_instance" "mysql" {
    ami = data.aws_ami.devopsami.image_id
+   iam_instance_profile = aws_iam_instance_profile.mysqlprofile.name
    instance_type = local.instance_type
    subnet_id = local.db_private_subnet_ids[0]
    vpc_security_group_ids =  [ local.mysqlsg_id ]
