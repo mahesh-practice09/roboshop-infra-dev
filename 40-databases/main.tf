@@ -30,102 +30,102 @@ resource "terraform_data" "mongodb_bootstrap" {
    
 }
 
-resource "aws_instance" "redis" {
-   ami = data.aws_ami.devopsami.image_id
-   instance_type = local.instance_type
-   subnet_id = local.db_private_subnet_ids[0]
-   vpc_security_group_ids = [ local.redissg_id ]
-   tags = merge(local.common_tags, 
-    { Name = "${var.Project}-${var.Env}-redis"})     #       Roboshop-sbx-redis
-}
+# resource "aws_instance" "redis" {
+#    ami = data.aws_ami.devopsami.image_id
+#    instance_type = local.instance_type
+#    subnet_id = local.db_private_subnet_ids[0]
+#    vpc_security_group_ids = [ local.redissg_id ]
+#    tags = merge(local.common_tags, 
+#     { Name = "${var.Project}-${var.Env}-redis"})     #       Roboshop-sbx-redis
+# }
 
-resource "terraform_data" "redis_bootstrap" {
-    triggers_replace = [aws_instance.redis.id]
+# resource "terraform_data" "redis_bootstrap" {
+#     triggers_replace = [aws_instance.redis.id]
   
 
-     provisioner "file" {
-        source = "bootstrap.sh"
-        destination = "/tmp/bootstrap.sh"
-     }
+#      provisioner "file" {
+#         source = "bootstrap.sh"
+#         destination = "/tmp/bootstrap.sh"
+#      }
 
-     provisioner "remote-exec" {
-      inline = [ "chmod +x /tmp/bootstrap.sh" ,
-                 "sudo sh /tmp/bootstrap.sh redis" ]
-    }
+#      provisioner "remote-exec" {
+#       inline = [ "chmod +x /tmp/bootstrap.sh" ,
+#                  "sudo sh /tmp/bootstrap.sh redis" ]
+#     }
 
-    connection {
-         type = "ssh"
-         user = "ec2-user"
-         password = "DevOps321"
-         host = aws_instance.redis.private_ip
-    }
+#     connection {
+#          type = "ssh"
+#          user = "ec2-user"
+#          password = "DevOps321"
+#          host = aws_instance.redis.private_ip
+#     }
    
-}
+# }
 
-resource "aws_instance" "rabbitmq" {
-   ami = data.aws_ami.devopsami.image_id
-   instance_type = local.instance_type
-   subnet_id = local.db_private_subnet_ids[0]
-   vpc_security_group_ids = [ local.rabbitmqsg_id ]
-    tags = merge(local.common_tags, 
-    { Name = "${var.Project}-${var.Env}-rabbitmq"})   #      Roboshop-sbx-rabbitmq
-}
+# resource "aws_instance" "rabbitmq" {
+#    ami = data.aws_ami.devopsami.image_id
+#    instance_type = local.instance_type
+#    subnet_id = local.db_private_subnet_ids[0]
+#    vpc_security_group_ids = [ local.rabbitmqsg_id ]
+#     tags = merge(local.common_tags, 
+#     { Name = "${var.Project}-${var.Env}-rabbitmq"})   #      Roboshop-sbx-rabbitmq
+# }
 
-resource "terraform_data" "rabbitmq_bootstrap" {
-    triggers_replace = [aws_instance.rabbitmq.id]
+# resource "terraform_data" "rabbitmq_bootstrap" {
+#     triggers_replace = [aws_instance.rabbitmq.id]
    
 
-     provisioner "file" {
-        source = "bootstrap.sh"
-        destination = "/tmp/bootstrap.sh"
-     }
+#      provisioner "file" {
+#         source = "bootstrap.sh"
+#         destination = "/tmp/bootstrap.sh"
+#      }
 
-     provisioner "remote-exec" {
-      inline = [ "chmod +x /tmp/bootstrap.sh" ,
-                 "sudo sh /tmp/bootstrap.sh rabbitmq" ]
-    }
+#      provisioner "remote-exec" {
+#       inline = [ "chmod +x /tmp/bootstrap.sh" ,
+#                  "sudo sh /tmp/bootstrap.sh rabbitmq" ]
+#     }
 
-    connection {
-         type = "ssh"
-         user = "ec2-user"
-         password = "DevOps321"
-         host = aws_instance.rabbitmq.private_ip
-    }
+#     connection {
+#          type = "ssh"
+#          user = "ec2-user"
+#          password = "DevOps321"
+#          host = aws_instance.rabbitmq.private_ip
+#     }
    
-}
+# }
 
-resource "aws_instance" "mysql" {
-   ami = data.aws_ami.devopsami.image_id
-   instance_type = local.instance_type
-   subnet_id = local.db_private_subnet_ids[0]
-   vpc_security_group_ids =  [ local.mysqlsg_id ]
-   tags = merge(local.common_tags, 
-    { Name = "${var.Project}-${var.Env}-mysql"})   #      Roboshop-sbx-mysql
+# resource "aws_instance" "mysql" {
+#    ami = data.aws_ami.devopsami.image_id
+#    instance_type = local.instance_type
+#    subnet_id = local.db_private_subnet_ids[0]
+#    vpc_security_group_ids =  [ local.mysqlsg_id ]
+#    tags = merge(local.common_tags, 
+#     { Name = "${var.Project}-${var.Env}-mysql"})   #      Roboshop-sbx-mysql
 
-}
+# }
 
-resource "terraform_data" "mysql_bootstrap" {
-    triggers_replace = [aws_instance.mysql.id]
+# resource "terraform_data" "mysql_bootstrap" {
+#     triggers_replace = [aws_instance.mysql.id]
   
 
-     provisioner "file" {
-        source = "bootstrap.sh"
-        destination = "/tmp/bootstrap.sh"
-     }
+#      provisioner "file" {
+#         source = "bootstrap.sh"
+#         destination = "/tmp/bootstrap.sh"
+#      }
 
-     provisioner "remote-exec" {
-      inline = [ "chmod +x /tmp/bootstrap.sh" ,
-                 "sudo sh /tmp/bootstrap.sh mysql" ]
-    }
+#      provisioner "remote-exec" {
+#       inline = [ "chmod +x /tmp/bootstrap.sh" ,
+#                  "sudo sh /tmp/bootstrap.sh mysql" ]
+#     }
 
-    connection {
-         type = "ssh"
-         user = "ec2-user"
-         password = "DevOps321"
-         host = aws_instance.mysql.private_ip
-    }
+#     connection {
+#          type = "ssh"
+#          user = "ec2-user"
+#          password = "DevOps321"
+#          host = aws_instance.mysql.private_ip
+#     }
    
-}
+# }
 
 resource "aws_route53_record" "mongodb" {
   zone_id = var.zone_id
