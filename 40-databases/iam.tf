@@ -24,10 +24,10 @@ resource "aws_iam_policy" "sql" {
 
 resource "aws_iam_role_policy_attachment" "mysql" {
   role = aws_iam_role.mysqlrole.name
-  policy_arn = aws_iam_policy.sqlpolicy.arn
+  policy_arn = aws_iam_policy.sql.arn
 }
 
 resource "aws_iam_instance_profile" "mysql" {
    name =  "${var.Project}-${var.Env}-mysql-profile"
-   role = aws_iam_role.mysqlrole.name
+   role = aws_iam_role.mysql.name
 }
