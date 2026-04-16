@@ -4,10 +4,7 @@
     {
       "Effect": "Allow",
       "Action": [
-        "ssm:GetParameter",
-        "ssm:GetParameters",
-        "ssm:DescribeParameters",
-        "kms:Decrypt"
+        "ssm:GetParameter"
       ],
       "Resource": "arn:aws:ssm:us-east-1:024579064366:parameter/roboshop/sbx/mysql_root_password"
     }
