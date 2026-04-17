@@ -19,7 +19,8 @@ resource "aws_iam_role" "mysql" {
 resource "aws_iam_policy" "sql" {
   name        = local.mysql_role_policy
   
-   policy = file("mysql-iam-policy.json")
+  #  policy = file("mysql-iam-policy.json")
+  policy = templatefile("mysql-iam-policy.json",{environment=var.environment})
 }
 
 resource "aws_iam_role_policy_attachment" "mysql" {
@@ -28,6 +29,6 @@ resource "aws_iam_role_policy_attachment" "mysql" {
 }
 
 resource "aws_iam_instance_profile" "mysql" {
-   name =  "${var.Project}-${var.Env}-mysql-profile"
+   name =  "${var.Project}-${var.environment}-mysql-profile"
    role = aws_iam_role.mysql.name
 }

@@ -4,7 +4,7 @@ resource "aws_instance" "mongodb" {
    subnet_id = local.db_private_subnet_ids[0]
    vpc_security_group_ids = [ local.mongodbsg_id ]
    tags = merge(local.common_tags, 
-    { Name = "${var.Project}-${var.Env}-mongodb"})      #    Roboshop-sbx-mongodb
+    { Name = "${var.Project}-${var.environment}-mongodb"})      #    Roboshop-sbx-mongodb
 }
 
 resource "terraform_data" "mongodb_bootstrap" {
@@ -18,7 +18,7 @@ resource "terraform_data" "mongodb_bootstrap" {
 
      provisioner "remote-exec" {
       inline = [ "chmod +x /tmp/bootstrap.sh" ,
-                 "sudo sh /tmp/bootstrap.sh mongodb" ]
+                 "sudo sh /tmp/bootstrap.sh mongodb ${var.environment}" ]
     }
 
     connection {
@@ -36,7 +36,7 @@ resource "aws_instance" "redis" {
    subnet_id = local.db_private_subnet_ids[0]
    vpc_security_group_ids = [ local.redissg_id ]
    tags = merge(local.common_tags, 
-    { Name = "${var.Project}-${var.Env}-redis"})     #       Roboshop-sbx-redis
+    { Name = "${var.Project}-${var.environment}-redis"})     #       Roboshop-sbx-redis
 }
 
 resource "terraform_data" "redis_bootstrap" {
@@ -50,7 +50,7 @@ resource "terraform_data" "redis_bootstrap" {
 
      provisioner "remote-exec" {
       inline = [ "chmod +x /tmp/bootstrap.sh" ,
-                 "sudo sh /tmp/bootstrap.sh redis" ]
+                 "sudo sh /tmp/bootstrap.sh redis ${var.environment}" ]
     }
 
     connection {
@@ -68,7 +68,7 @@ resource "aws_instance" "rabbitmq" {
    subnet_id = local.db_private_subnet_ids[0]
    vpc_security_group_ids = [ local.rabbitmqsg_id ]
     tags = merge(local.common_tags, 
-    { Name = "${var.Project}-${var.Env}-rabbitmq"})   #      Roboshop-sbx-rabbitmq
+    { Name = "${var.Project}-${var.environment}-rabbitmq sbx"})   #      Roboshop-sbx-rabbitmq
 }
 
 resource "terraform_data" "rabbitmq_bootstrap" {
@@ -82,7 +82,7 @@ resource "terraform_data" "rabbitmq_bootstrap" {
 
      provisioner "remote-exec" {
       inline = [ "chmod +x /tmp/bootstrap.sh" ,
-                 "sudo sh /tmp/bootstrap.sh rabbitmq" ]
+                 "sudo sh /tmp/bootstrap.sh rabbitmq ${var.environment}" ]
     }
 
     connection {
@@ -101,7 +101,7 @@ resource "aws_instance" "mysql" {
    subnet_id = local.db_private_subnet_ids[0]
    vpc_security_group_ids =  [ local.mysqlsg_id ]
    tags = merge(local.common_tags, 
-    { Name = "${var.Project}-${var.Env}-mysql"})   #      Roboshop-sbx-mysql
+    { Name = "${var.Project}-${var.environment}-mysql"})   #      Roboshop-sbx-mysql
 
 }
 
@@ -116,7 +116,7 @@ resource "terraform_data" "mysql_bootstrap" {
 
      provisioner "remote-exec" {
       inline = [ "chmod +x /tmp/bootstrap.sh" ,
-                 "sudo sh /tmp/bootstrap.sh mysql" ]
+                 "sudo sh /tmp/bootstrap.sh mysql ${var.environment}" ]
     }
 
     connection {
@@ -130,7 +130,7 @@ resource "terraform_data" "mysql_bootstrap" {
 
 resource "aws_route53_record" "mongodb" {
   zone_id = var.zone_id
-  name    = "${var.Project}-${var.Env}-mongodb.${var.domain_name}"      #roboshop-sbx-mongodb.daws88s.shop
+  name    = "${var.Project}-${var.environment}-mongodb.${var.domain_name}"      #roboshop-sbx-mongodb.daws88s.shop
   type    = "A"
   ttl     = 2
   records = [ aws_instance.mongodb.private_ip ]
@@ -139,7 +139,7 @@ resource "aws_route53_record" "mongodb" {
 
 resource "aws_route53_record" "redis" {
   zone_id = var.zone_id
-  name    = "${var.Project}-${var.Env}-redis.${var.domain_name}"        #roboshop-sbx-redis.daws88s.shop
+  name    = "${var.Project}-${var.environment}-redis.${var.domain_name}"        #roboshop-sbx-redis.daws88s.shop
   type    = "A"
   ttl     = 2
   records = [ aws_instance.redis.private_ip ]
@@ -148,7 +148,7 @@ resource "aws_route53_record" "redis" {
 
 resource "aws_route53_record" "rabbitmq" {
   zone_id = var.zone_id
-  name    = "${var.Project}-${var.Env}-rabbitmq.${var.domain_name}"     #roboshop-sbx-rabbitmq.daws88s.shop
+  name    = "${var.Project}-${var.environment}-rabbitmq.${var.domain_name}"     #roboshop-sbx-rabbitmq.daws88s.shop
   type    = "A"
   ttl     = 2
   records = [ aws_instance.rabbitmq.private_ip ]
@@ -157,7 +157,7 @@ resource "aws_route53_record" "rabbitmq" {
 
 resource "aws_route53_record" "mysql" {
   zone_id = var.zone_id
-  name    = "${var.Project}-${var.Env}-mysql.${var.domain_name}"       #roboshop-sbx-mysql.daws88s.shop
+  name    = "${var.Project}-${var.environment}-mysql.${var.domain_name}"       #roboshop-sbx-mysql.daws88s.shop
   type    = "A"
   ttl     = 2
   records = [ aws_instance.mysql.private_ip ]

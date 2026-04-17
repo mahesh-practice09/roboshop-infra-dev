@@ -1,4 +1,4 @@
-variable "Env" {
+variable "environment" {
   type = string
   default = "sbx"
 }
