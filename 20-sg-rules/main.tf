@@ -96,3 +96,13 @@ resource "aws_security_group_rule" "payment_rabbitmq" {
   source_security_group_id = data.aws_ssm_parameter.payment_sg_id.value
   security_group_id = data.aws_ssm_parameter.rabbitmq_sg_id.value
 }
+
+
+resource "aws_security_group_rule" "bastion_alb_backend" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = data.aws_ssm_parameter.bastion_sg_id.value
+  security_group_id = data.aws_ssm_parameter.backend_alb_sg_id.value
+}
