@@ -20,7 +20,7 @@ resource "aws_iam_policy" "sql" {
   name        = local.mysql_role_policy
   
   #  policy = file("mysql-iam-policy.json")
-  policy = templatefile("mysql-iam-policy.json",{environment=var.environment})
+  policy = templatefile("mysql-iam-policy.json",{environment = var.environment})
 }
 
 resource "aws_iam_role_policy_attachment" "mysql" {
