@@ -6,4 +6,4 @@ environment=$2
 rm -rf ansible-roboshop-roles-tf
 git clone https://github.com/mahesh-practice09/ansible-roboshop-roles-tf.git
 cd ansible-roboshop-roles-tf
-sudo ansible-playbook -e component=$component -e environment=$environment roboshop.yaml
+sudo ansible-playbook -e component=$component -e env=$environment roboshop.yaml
