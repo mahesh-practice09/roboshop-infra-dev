@@ -56,3 +56,8 @@ data "aws_ssm_parameter" "backend_alb_sg_id" {
   
   name = "/${var.Project}/${var.Env}/backend_alb_sg_id"
 }
+
+data "aws_ssm_parameter" "catalogue_sg_id" {
+  
+  name = "/${var.Project}/${var.Env}/catalogue_sg_id"
+}

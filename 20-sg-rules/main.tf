@@ -106,3 +106,21 @@ resource "aws_security_group_rule" "bastion_alb_backend" {
   source_security_group_id = data.aws_ssm_parameter.bastion_sg_id.value
   security_group_id = data.aws_ssm_parameter.backend_alb_sg_id.value
 }
+
+resource "aws_security_group_rule" "bastion_catalogue" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  source_security_group_id = data.aws_ssm_parameter.bastion_sg_id.value
+  security_group_id = data.aws_ssm_parameter.catalogue_sg_id.value
+}
+
+resource "aws_security_group_rule" "backend_lab_catalogue" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  source_security_group_id = data.aws_ssm_parameter.backend_alb_sg_id.value
+  security_group_id = data.aws_ssm_parameter.catalogue_sg_id.value
+}
