@@ -68,7 +68,7 @@ resource "aws_instance" "rabbitmq" {
    subnet_id = local.db_private_subnet_ids[0]
    vpc_security_group_ids = [ local.rabbitmqsg_id ]
     tags = merge(local.common_tags, 
-    { Name = "${var.Project}-${var.environment}-rabbitmq sbx"})   #      Roboshop-sbx-rabbitmq
+    { Name = "${var.Project}-${var.environment}-rabbitmq"})   #      Roboshop-sbx-rabbitmq
 }
 
 resource "terraform_data" "rabbitmq_bootstrap" {
