@@ -6,7 +6,5 @@ locals {
         Terraform = true
         Env = var.environment
       }
-    mysql_role_name = join("-", [ for name in ["${var.Project}","${var.environment}","mysql"]: title(name) ])
-
-    mysql_role_policy = join("-", [ for name in ["${var.Project}","${var.environment}","mysqlpolicy"]: title(name) ])
+  
 }     

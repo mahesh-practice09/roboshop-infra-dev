@@ -3,7 +3,7 @@ resource "aws_lb" "backendalb" {
   internal           = true
   load_balancer_type = "application"
   security_groups    = [ local.backend_alb_sg_id ]
-  subnets            = [private_subnet_ids]
+  subnets            = local.private_subnet_ids
 
   enable_deletion_protection = true
 
@@ -29,3 +29,16 @@ resource "aws_lb_listener" "http" {
     }
   }
 }
+
+resource "aws_route53_record" "backendalb" {
+  zone_id = var.zone_id
+  name    = "*.backend-${var.environment}-alb.daws88s.shop"
+  type    = "A"
+  alias {
+     name = aws_lb.backendalb.dns_name
+     evaluate_target_health = true
+     zone_id = aws_lb.backendalb.zone_id
+  }
+  allow_overwrite = true
+}
+
