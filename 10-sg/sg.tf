@@ -1,8 +1,8 @@
 module "sg" {
    count = length(var.Component)
    source = "../../terraform-aws-sg"
-   Env = var.Env
-   Project = var.Project 
-   Component = replace(var.Component[count.index], "_","-" )
+   environment = var.Env
+   project = var.project 
    vpc_id = local.vpc_id
+   sg_name = replace(var.Component[count.index], "_","-" )
 }

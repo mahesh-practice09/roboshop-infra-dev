@@ -1,6 +1,6 @@
 
 
-  variable "Project" {
+  variable "project" {
     default = "roboshop"
   }
 
