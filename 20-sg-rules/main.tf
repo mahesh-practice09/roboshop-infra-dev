@@ -127,8 +127,8 @@ resource "aws_security_group_rule" "backendalb_catalogue" {
 
 resource "aws_security_group_rule" "internet_frontendalb" {
   type              = "ingress"
-  from_port         = 0
-  to_port           = 0
+  from_port         = "443"
+  to_port           = "443"
   protocol          = "-1"
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = data.aws_ssm_parameter.frontend_alb_sg_id.value

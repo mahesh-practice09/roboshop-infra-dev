@@ -39,8 +39,8 @@ resource "aws_route53_record" "frontendalb" {
   alias {
      name = aws_lb.frontendalb.dns_name
      evaluate_target_health = true
-  #    zone_id = data.aws_route53_zone.roboshop.zone_id
-  # }
+     zone_id = aws_lb.frontendalb.zone_id
+   }
   allow_overwrite = true
 }
 

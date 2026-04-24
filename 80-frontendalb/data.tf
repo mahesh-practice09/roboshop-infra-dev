@@ -38,7 +38,7 @@ data "aws_ssm_parameter" "rabbitmq_sg_id" {
 }
 
 data "aws_ssm_parameter" "public_subnet_ids" {
-  name  = "/${var.Project}/${var.environment}/db_private_subnet_ids"
+  name  = "/${var.Project}/${var.environment}/public_subnet_ids"
 }
 
 data "aws_ssm_parameter" "backend_alb_sg_id" {
