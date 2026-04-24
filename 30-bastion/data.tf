@@ -15,11 +15,11 @@ data "aws_ami" "devopsami" {
 
 
 data "aws_ssm_parameter" "public_subnet_ids" {
-  name  = "/${var.Project}/${var.Env}/public_subnet_ids"
+  name  = "/${var.Project}/${var.environment}/public_subnet_ids"
 }
 
 
 data "aws_ssm_parameter" "bastion_sg_id" {
   
-  name = "/${var.Project}/${var.Env}/bastion_sg_id"
+  name = "/${var.Project}/${var.environment}/bastion_sg_id"
 }

@@ -1,5 +1,5 @@
 resource "aws_iam_role" "bastionrole" {
-  name = "${var.Project}-${var.Env}-Bastion"
+  name = "${var.Project}-${var.environment}-Bastion"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -25,7 +25,7 @@ resource "aws_iam_role_policy_attachment" "bastion_attach_policy" {
 
 
 resource "aws_iam_instance_profile" "bastionprofile" {
-   name =  "${var.Project}-${var.Env}-Bastion-profile"
+   name =  "${var.Project}-${var.environment}-Bastion-profile"
 role = aws_iam_role.bastionrole.name
 }
 
@@ -38,12 +38,12 @@ resource "aws_instance" "bastion" {
    vpc_security_group_ids = [ local.bastionsg_id ]
    user_data = file("bastion.sh")
    tags = merge(local.common_tags, 
-    { Name = "${var.Project}-${var.Env}-bastion"})     
+    { Name = "${var.Project}-${var.environment}-bastion"})     
    root_block_device {
          volume_size = 50
          volume_type = "gp3"
          tags = merge(local.common_tags, 
-    { Name = "${var.Project}-${var.Env}-bastion"})  
+    { Name = "${var.Project}-${var.environment}-bastion"})  
    }
 }
 
@@ -60,7 +60,8 @@ resource "terraform_data" "bootstrap" {
          host = aws_instance.bastion.public_ip
     }
     provisioner "remote-exec" {
-      inline = [ "chmod +x /tmp/bootstrap.sh" ,
+      inline = [ "sed -i 's/\r$//' /tmp/bootstrap.sh",
+                 "chmod +x /tmp/bootstrap.sh" ,
                  "sudo sh /tmp/bootstrap.sh" ]
     }
 }

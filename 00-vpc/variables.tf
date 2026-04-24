@@ -4,6 +4,6 @@
     default = "roboshop"
   }
 
-  variable "Env" {
+  variable "environment" {
     default = "sbx"
   }

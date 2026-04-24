@@ -130,7 +130,7 @@ resource "terraform_data" "mysql_bootstrap" {
 
 resource "aws_route53_record" "mongodb" {
   zone_id = var.zone_id
-  name    = "${var.Project}-${var.environment}-mongodb.${var.domain_name}"      #roboshop-sbx-mongodb.daws88s.shop
+  name    = "mongodb-${var.environment}.${var.domain_name}"      #mongodb-sbx.daws88s.shop
   type    = "A"
   ttl     = 2
   records = [ aws_instance.mongodb.private_ip ]
@@ -139,7 +139,7 @@ resource "aws_route53_record" "mongodb" {
 
 resource "aws_route53_record" "redis" {
   zone_id = var.zone_id
-  name    = "${var.Project}-${var.environment}-redis.${var.domain_name}"        #roboshop-sbx-redis.daws88s.shop
+  name    =  "redis-${var.environment}.${var.domain_name}"       #redis-sbx.daws88s.shop
   type    = "A"
   ttl     = 2
   records = [ aws_instance.redis.private_ip ]
@@ -148,7 +148,7 @@ resource "aws_route53_record" "redis" {
 
 resource "aws_route53_record" "rabbitmq" {
   zone_id = var.zone_id
-  name    = "${var.Project}-${var.environment}-rabbitmq.${var.domain_name}"     #roboshop-sbx-rabbitmq.daws88s.shop
+  name    = "rabbitmq-${var.environment}.${var.domain_name}"      #rabbitmq-sbx.daws88s.shop
   type    = "A"
   ttl     = 2
   records = [ aws_instance.rabbitmq.private_ip ]
@@ -157,7 +157,7 @@ resource "aws_route53_record" "rabbitmq" {
 
 resource "aws_route53_record" "mysql" {
   zone_id = var.zone_id
-  name    = "${var.Project}-${var.environment}-mysql.${var.domain_name}"       #roboshop-sbx-mysql.daws88s.shop
+  name    = "mysql-${var.environment}.${var.domain_name}"         #mysql-sbx.daws88s.shop
   type    = "A"
   ttl     = 2
   records = [ aws_instance.mysql.private_ip ]
