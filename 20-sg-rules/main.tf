@@ -224,3 +224,12 @@ resource "aws_security_group_rule" "frontendalb_frontend" {
   source_security_group_id = data.aws_ssm_parameter.frontend_alb_sg_id.value
   security_group_id = data.aws_ssm_parameter.frontend_sg_id.value
 }
+
+resource "aws_security_group_rule" "frontend_backendalb" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = data.aws_ssm_parameter.frontend_sg_id.value
+  security_group_id = data.aws_ssm_parameter.backend_alb_sg_id.value
+}
