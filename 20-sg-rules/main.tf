@@ -98,7 +98,7 @@ resource "aws_security_group_rule" "payment_rabbitmq" {
 }
 
 
-resource "aws_security_group_rule" "bastion_alb_backend" {
+resource "aws_security_group_rule" "bastion_alb_backendalb" {
   type              = "ingress"
   from_port         = 80
   to_port           = 80
@@ -231,5 +231,50 @@ resource "aws_security_group_rule" "frontend_backendalb" {
   to_port           = 80
   protocol          = "tcp"
   source_security_group_id = data.aws_ssm_parameter.frontend_sg_id.value
+  security_group_id = data.aws_ssm_parameter.backend_alb_sg_id.value
+}
+
+resource "aws_security_group_rule" "payment_backendalb" {
+   type = "ingress"
+   from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = data.aws_ssm_parameter.payment_sg_id.value
+  security_group_id = data.aws_ssm_parameter.backend_alb_sg_id.value
+}
+
+resource "aws_security_group_rule" "shipping_backendalb" {
+   type = "ingress"
+   from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = data.aws_ssm_parameter.shipping_sg_id.value
+  security_group_id = data.aws_ssm_parameter.backend_alb_sg_id.value
+}
+
+resource "aws_security_group_rule" "user_backendalb" {
+   type = "ingress"
+   from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = data.aws_ssm_parameter.user_sg_id.value
+  security_group_id = data.aws_ssm_parameter.backend_alb_sg_id.value
+}
+
+resource "aws_security_group_rule" "cart_backendalb" {
+   type = "ingress"
+   from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = data.aws_ssm_parameter.cart_sg_id.value
+  security_group_id = data.aws_ssm_parameter.backend_alb_sg_id.value
+}
+
+resource "aws_security_group_rule" "catalogue_backendalb" {
+   type = "ingress"
+   from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = data.aws_ssm_parameter.catalogue_sg_id.value
   security_group_id = data.aws_ssm_parameter.backend_alb_sg_id.value
 }
