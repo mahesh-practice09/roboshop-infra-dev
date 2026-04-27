@@ -5,7 +5,7 @@ resource "aws_security_group_rule" "internet_bastion" {
   to_port           = 22
   protocol          = "tcp"
   #cidr_blocks       = ["0.0.0.0/0"]
-  cidr_blocks       = [local.my_ip]
+  cidr_blocks = ["${local.my_ip}/32"]
   # which SG you are creating this rule
   security_group_id = data.aws_ssm_parameter.bastion_sg_id.value
 }
@@ -286,7 +286,7 @@ resource "aws_security_group_rule" "frontend_backendalb" {
   to_port           = 80
   protocol          = "tcp"
   # Where traffic is coming from
-  source_security_group_id = data.aws_ssm_parameter.frontend_alb_sg_id.value
+  source_security_group_id = data.aws_ssm_parameter.frontend_sg_id.value
   security_group_id = data.aws_ssm_parameter.backend_alb_sg_id.value
 }
 
