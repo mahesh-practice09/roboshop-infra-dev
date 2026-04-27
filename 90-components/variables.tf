@@ -16,3 +16,7 @@ variable "environment" {
 variable "Project" {
   default = "roboshop"
 }
+
+variable "app_version" {
+  default = "v3"
+}
