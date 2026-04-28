@@ -74,6 +74,7 @@ resource "aws_route53_record" "cloudfront" {
    zone_id = var.zone_id
    name = "${var.Project}-${var.environment}.${var.domain_name}"
    type = "A"
+   ttl = 1
 
   alias {
     name                   = aws_cloudfront_distribution.roboshop.domain_name
