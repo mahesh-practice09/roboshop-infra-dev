@@ -72,7 +72,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
 
 resource "aws_route53_record" "cloudfront" {
    zone_id = var.zone_id
-   name = ["${var.Project}-${var.environment}.${var.domain_name}"]
+   name = "${var.Project}-${var.environment}.${var.domain_name}"
    type = "A"
 
   alias {
