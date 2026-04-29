@@ -67,3 +67,8 @@ data "aws_ssm_parameter" "frontend_sg_id" {
   
   name = "/${var.Project}/${var.environment}/frontend_sg_id"
 }
+
+data "aws_ssm_parameter" "openvpn_sg_id" {
+  
+  name = "/${var.Project}/${var.environment}/openvpn_sg_id"
+}

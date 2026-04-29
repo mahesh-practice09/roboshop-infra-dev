@@ -31,6 +31,6 @@
 
       "backend_alb" ,"frontend_alb",
 
-      "bastion"
+      "bastion" , "openvpn"
     ]
   }

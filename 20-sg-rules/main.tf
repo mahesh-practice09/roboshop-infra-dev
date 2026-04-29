@@ -321,3 +321,35 @@ resource "aws_security_group_rule" "public_frontendalb" {
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = data.aws_ssm_parameter.frontend_alb_sg_id.value
 }
+
+#openvpn
+
+resource "aws_security_group_rule" "internet_openvpn" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  # Where traffic is coming from
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = data.aws_ssm_parameter.openvpn_sg_id.value
+}
+
+resource "aws_security_group_rule" "public_frontendalb" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  # Where traffic is coming from
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = data.aws_ssm_parameter.frontend_alb_sg_id.value
+}
+
+resource "aws_security_group_rule" "public_frontendalb" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  # Where traffic is coming from
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = data.aws_ssm_parameter.frontend_alb_sg_id.value
+}
