@@ -324,7 +324,7 @@ resource "aws_security_group_rule" "public_frontendalb" {
 
 #openvpn
 
-resource "aws_security_group_rule" "internet_openvpn" {
+resource "aws_security_group_rule" "https_openvpn" {
   type              = "ingress"
   from_port         = 443
   to_port           = 443
@@ -334,22 +334,34 @@ resource "aws_security_group_rule" "internet_openvpn" {
   security_group_id = data.aws_ssm_parameter.openvpn_sg_id.value
 }
 
-resource "aws_security_group_rule" "public_frontendalb" {
+resource "aws_security_group_rule" "ssh_openvpn" {
   type              = "ingress"
-  from_port         = 443
-  to_port           = 443
+  from_port         = 22
+  to_port           = 22
   protocol          = "tcp"
   # Where traffic is coming from
   cidr_blocks = ["0.0.0.0/0"]
-  security_group_id = data.aws_ssm_parameter.frontend_alb_sg_id.value
+  security_group_id = data.aws_ssm_parameter.openvpn_sg_id.value
 }
 
-resource "aws_security_group_rule" "public_frontendalb" {
+
+#AdminUI
+resource "aws_security_group_rule" "port943_openvpn" {
   type              = "ingress"
-  from_port         = 443
-  to_port           = 443
+  from_port         = 943
+  to_port           = 943
   protocol          = "tcp"
   # Where traffic is coming from
   cidr_blocks = ["0.0.0.0/0"]
-  security_group_id = data.aws_ssm_parameter.frontend_alb_sg_id.value
+  security_group_id = data.aws_ssm_parameter.openvpn_sg_id.value
+}
+
+resource "aws_security_group_rule" "openvpn_backendalb" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  # Where traffic is coming from
+  source_security_group_id = data.aws_ssm_parameter.openvpn_sg_id.value
+  security_group_id = data.aws_ssm_parameter.backend_alb_sg_id.value
 }
