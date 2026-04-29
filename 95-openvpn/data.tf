@@ -1,4 +1,4 @@
-data "aws_ami" "devopsami" {
+data "aws_ami" "openvpnami" {
   most_recent = true
   owners      = ["679593333241"] # Canonical's AWS Account ID
 
